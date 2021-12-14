@@ -102,8 +102,8 @@ int main() {
             int first_jump = -1;
             std::cout << "probing stride " << cache_size / cache_assoc + L << "..." << std::endl;
             for (int S = 1; S <= 1024; S *= 2) {
-                int curr_time = time(cache_size / cache_assoc + L, S);
-                if (prev_time != -1 && (double) (curr_time - prev_time) / curr_time > 0.3) {
+                int curr_time = time(cache_size / cache_assoc + L, S + 1);
+                if (prev_time != -1 && (double) (curr_time - prev_time) / curr_time > 0.1) {
                     if (first_jump <= 0) {
                         first_jump = S;
                     }
@@ -112,7 +112,7 @@ int main() {
                 prev_time = curr_time;
             }
             std::cout << std::endl;
-            if (first_jump > prev_first_jump) {
+            if (first_jump > prev_first_jump || prev_first_jump != 1025 * first_jump == -1) {
                 cache_line_size = L * cache_assoc;
                 break;
             }
