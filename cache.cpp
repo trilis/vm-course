@@ -38,7 +38,7 @@ int main() {
     int H = 16;
 
     for (; H < 1024 * 1024 * 1024 / 16; H *= 2) {
-        std::cout << "probing stride " << H << "..." << std::endl;
+        //std::cout << "probing stride " << H << "..." << std::endl;
         int prev_time = -1;
         std::set<int> new_jumps;
     
@@ -47,11 +47,11 @@ int main() {
             //std::cout << curr_time << " ";
             if (prev_time != -1 && (double) (curr_time - prev_time) / curr_time > 0.1) {
                 new_jumps.insert(S - 1);
-                std::cout << S - 1 << " ";
+                //std::cout << S - 1 << " ";
             }
             prev_time = curr_time;
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
         
         bool same = 1;
         if (jumps.size() > 0) {
@@ -70,7 +70,7 @@ int main() {
         jumps.push_back(new_jumps);
     }
 
-    std::cout << "done!" << std::endl;
+    //std::cout << "done!" << std::endl;
 
     std::vector<std::pair<int, int>> caches;
 
@@ -100,18 +100,18 @@ int main() {
         for (int L = 1; L <= cache_size; L *= 2) {
             int prev_time = -1;
             int first_jump = -1;
-            std::cout << "probing stride " << cache_size / cache_assoc + L << "..." << std::endl;
+            //std::cout << "probing stride " << cache_size / cache_assoc + L << "..." << std::endl;
             for (int S = 1; S <= 1024; S *= 2) {
                 int curr_time = time(cache_size / cache_assoc + L, S + 1);
                 if (prev_time != -1 && (double) (curr_time - prev_time) / curr_time > 0.1) {
                     if (first_jump <= 0) {
                         first_jump = S;
                     }
-                    std::cout << S << " ";
+                    //std::cout << S << " ";
                 }
                 prev_time = curr_time;
             }
-            std::cout << std::endl;
+            //std::cout << std::endl;
             if (first_jump > prev_first_jump || prev_first_jump != 1025 * first_jump == -1) {
                 cache_line_size = L * cache_assoc;
                 break;
